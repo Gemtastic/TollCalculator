@@ -1,14 +1,17 @@
-CREATE DATABASE toll_calculator;
-CREATE USER calculator WITH PASSSWORD 'secretpassword';
+CREATE role app WITH LOGIN PASSWORD 'abc123';
+CREATE DATABASE toll_calculator owner app;
+\c toll_calculator
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO app;
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO app;
 
-CREATE TABLE VehicleType(
-  ID serial PRIMARY KEY,
+CREATE TABLE vehicle_type(
+  id serial PRIMARY KEY,
   type VARCHAR(255) NOT NULL,
   tollable BOOLEAN NOT NULL
 );
 
 CREATE TABLE toll_rate(
-  ID serial PRIMARY KEY,
+  id serial PRIMARY KEY,
   rate INTEGER NOT NULL,
   name VARCHAR(255) NOT NULL,
   valid_from DATE NOT NULL,
@@ -16,11 +19,14 @@ CREATE TABLE toll_rate(
 );
 
 CREATE TABLE vehicle(
-  ID serial PRIMARY KEY,
-  vehicle_type INTEGER REFERENCES VehicleType(ID),
+  id serial PRIMARY KEY,
+  vehicle_type_id INTEGER REFERENCES vehicle_type(id),
   license_plate VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE checkpoint(
-
+  id serial PRIMARY KEY,
+  vehicle_id INTEGER REFERENCES vehicle(id),
+  passthrough date NOT NULL,
+  toll_rate_id INTEGER REFERENCES toll_rate(id)
 );
