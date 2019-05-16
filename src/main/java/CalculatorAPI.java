@@ -5,8 +5,15 @@ import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+@Path("/")
 @ApplicationPath("/api")
 public class CalculatorAPI extends Application {
+
+    @GET
+    @Produces(MediaType.TEXT_PLAIN)
+    public String apiIndex() {
+        return "Welcome to this open API for toll fees";
+    }
 
    @POST
    @Path("/register")
