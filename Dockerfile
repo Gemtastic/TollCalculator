@@ -1,5 +1,4 @@
 # Use latest jboss/base-jdk:11 image as the base
-# FROM jboss/wildfly:latest
 FROM jboss/base-jdk:11
 
 # Set the WILDFLY_VERSION env variable
@@ -29,7 +28,8 @@ USER jboss
 EXPOSE 8080
 
 # Set the default command to run on boot
-# This will boot WildFly in the standalone mode and bind to all interface
+# This will boot WildFly in the standalone mode and bind to all interface using the standalone settings
 CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-c", "standalone-full.xml"]
 
+# It's too peaceful... add WAR to the application server! MUAHAHA!
 COPY target/toll-calculator-1.0-SNAPSHOT.war $JBOSS_HOME/standalone/deployments/
