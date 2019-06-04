@@ -11,6 +11,9 @@ This is a small sample REST-based application for the lulz. The application simu
 * JDBC
 * Maven
 
+## Setup
+Edit the database username, password and link in `src/main/resources/Application.properties`.
+
 ## Run
 Run the `scripts/create.sh` script.
 
